@@ -9,13 +9,12 @@ game = trtl.Turtle()
 screen_width = 400
 screen_height = 400
 letter_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
-               "W", "X", "Y", "Z","ENTER"]
+               "W", "X", "Y", "Z", "ENTER"]
 current_letter = ""
 # ----Functions----
 
 game.speed("fastest")
 game.hideturtle()
-
 
 
 def startscreen():
@@ -52,19 +51,19 @@ def startscreen():
     game.goto(-175, -100)
     game.write("Press ENTER to BEGIN", font=("Arial", 25, "bold"))
 
+
 startscreen()
 
-def startgame():
-    game.clear
 
-    '''
-def checkEnter():
-    if (current_letter == "ENTER"):
-'''
+def startgame():
+    game.clear()
+
+
 # ----Funtion-Calls----
-'''
-wn.onkeypress(checkEnter, "\n")
-'''
+
+if wn.onkeypress("\n"):
+    startgame()
+
 wn.listen()
 
 wn.mainloop()
