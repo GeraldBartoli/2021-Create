@@ -76,9 +76,28 @@ def random_screen5():
     game.showturtle()
     game.pencolor("purple")
 
+
+
+
+
+
+
+
+
+
+
+
+def pickrandom_screen():
+    screenslist = [random_screen5(), random_screen4(), random_screen3(), random_screen2(), random_screen1()]
+    rand.choice(screenslist)
+
+
+
+
 def startresetgame():
     game.clear()
     game.showturtle()
+    pickrandom_screen()
     
     
 
