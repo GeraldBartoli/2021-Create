@@ -105,7 +105,7 @@ def triangle_shape():
 
 def square_object():
     game.pendown()
-    game.fillcolor('Dark Red')
+    game.fillcolor('DarkRed')
     game.begin_fill()
     game.forward(50)
     game.right(90)
