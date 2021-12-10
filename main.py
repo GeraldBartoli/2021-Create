@@ -57,8 +57,9 @@ def startscreen():
     game.write("(* also resets game)", font=("Arial", 20, "italic"))
 startscreen()
 
-#--Shapes-and-Objects--#
+#--Shapes-Objects-Lines-#
 
+#Lines#
 def line1():
     game.pensize(10)
     game.forward(50)
@@ -86,19 +87,52 @@ def line3():
     game.right(45)
     game.pensize(17)
     game.forward(40)
+#Shapes/Objects#
+def square_shape():
+    game.shape('square')
+
+def arrow_object():
+    game.shape('arrow')
+
+def turtle_object():
+    game.shape('turtle')
+
+def circle_shape():
+    game.shape('circle')
+
+def triangle_shape():
+    game.shape('triangle')
+
+def square_object():
+    game.pendown()
+    game.fillcolor('Dark Red')
+    game.begin_fill()
+    game.forward(50)
+    game.right(90)
+    game.forward(50)
+    game.right(90)
+    game.forward(50)
+    game.right(90)
+    game.forward(50)
+    game.right(90)
+    game.end_fill()
+    game.pendown()
+
 
 #--Shapes-and-Objects-Random--#
 
-lineslist = []
+lineslist = [line3,line2,line1]
+shapeslist = [square_shape,circle_shape,triangle_shape]
+objectslist = [turtle_object,arrow_object,square_object]
 
 def pickrandom_shape():
-    rand.choice(shapeslist)
+    rand.choice(shapeslist)()
 
 def pickrandom_line():
-    rand.choice(lineslist)
+    rand.choice(lineslist)()
 
 def pickrandom_object():
-    rand.choice(objectslist)
+    rand.choice(objectslist)()
 
 
 
@@ -108,34 +142,36 @@ def random_screen1():
     game.showturtle()
     game.pencolor("red")
     game.pendown()
-    line2()
+    pickrandom_line()
+    game.goto(0,0)
 def random_screen2():
     game.showturtle()
     game.pencolor("orange")
     game.pendown()
-    line1()
+    pickrandom_line()
+    game.goto(0,0)
 def random_screen3():
     game.showturtle()
     game.pencolor("green")
     game.pendown()
-    line3()
+    pickrandom_line()
+    game.goto(0, 0)
+
 def random_screen4():
     game.showturtle()
     game.pencolor("blue")
-    game.pendown()
-    game.pensize(50)
-    game.forward(50)
+    pickrandom_object()
+
 def random_screen5():
     game.showturtle()
+    pickrandom_shape()
     game.pencolor("purple")
-    game.pendown()
-    game.pensize(50)
-    game.forward(50)
 
 screenslist = [random_screen5, random_screen4, random_screen3, random_screen2, random_screen1]
 
 def pickrandom_screen():
     rand.choice(screenslist)()
+
 
 #--Start-Game--#
 
