@@ -11,12 +11,17 @@ wn = trtl.Screen()
 game = trtl.Turtle()
 screen_width = 400
 screen_height = 400
+timerUp = False
+counterInterval = 1000
+timer = 10
+fontSetup = ("Arial BOLD", 30, "normal")
 letter_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
                "W", "X", "Y", "Z"]
 shape_game = ["arrow", "turtle", "circle", "square", "triangle", "classic"]
 color_game = ["red", "blue", "green", "orange", "purple", "gold"]
 game.speed("fastest")
 game.hideturtle()
+
 
 #--Start-Screen--#
 
@@ -45,10 +50,6 @@ def startscreen():
     game.write("Theres a countdown telling the time you have left", font=("Arial", 20, "bold"))
     game.goto(-450, 25)
     game.write("If you do not sucessfully complete the inputs in time you'll lose.", font=("Arial", 20, "bold"))
-    game.goto(-400, 0)
-    game.write("You will also lose if you do the wrong thing, so be careful", font=("Arial", 20, "bold"))
-    game.goto(-400, -25)
-    game.write("Quick reactions, memorization are included in this game", font=("Arial", 20, "bold"))
     game.goto(-100, -50)
     game.write("Pay attention", font=("Arial", 25, "bold"))
     game.goto(-130, -100)
@@ -118,53 +119,28 @@ def square_object():
     game.end_fill()
     game.pendown()
 
-
-#--Shapes-and-Objects-Random--#
-
-lineslist = [line3,line2,line1]
-shapeslist = [square_shape,circle_shape,triangle_shape]
-objectslist = [turtle_object,arrow_object,square_object]
-
-def pickrandom_shape():
-    rand.choice(shapeslist)()
-
-def pickrandom_line():
-    rand.choice(lineslist)()
-
-def pickrandom_object():
-    rand.choice(objectslist)()
-
-
-
 #--Random-Screens--#
 
 def random_screen1():
     game.showturtle()
     game.pencolor("red")
-    game.pendown()
-    pickrandom_line()
-    game.goto(0,0)
+
 def random_screen2():
     game.showturtle()
     game.pencolor("orange")
-    game.pendown()
-    pickrandom_line()
-    game.goto(0,0)
+
+
 def random_screen3():
     game.showturtle()
     game.pencolor("green")
-    game.pendown()
-    pickrandom_line()
-    game.goto(0, 0)
+
 
 def random_screen4():
     game.showturtle()
     game.pencolor("blue")
-    pickrandom_object()
 
 def random_screen5():
     game.showturtle()
-    pickrandom_shape()
     game.pencolor("purple")
 
 screenslist = [random_screen5, random_screen4, random_screen3, random_screen2, random_screen1]
@@ -172,15 +148,49 @@ screenslist = [random_screen5, random_screen4, random_screen3, random_screen2, r
 def pickrandom_screen():
     rand.choice(screenslist)()
 
-
 #--Start-Game--#
 
 def startresetgame():
     game.clear()
+    scoreWriter = trtl.Turtle()
+    counter = trtl.Turtle()
+    scoreWriter.clear()
+    counter.clear()
     game.showturtle()
     pickrandom_screen()
 
-#--Function-Calls--#
+    scoreWriter.hideturtle()
+    scoreWriter.penup()
+    scoreWriter.speed("fastest")
+    scoreWriter.goto(300, -300)
+
+    counter.hideturtle()
+    counter.penup()
+    counter.speed("fastest")
+    counter.goto(-475, -400)
+
+    def scoreChange():
+        global score
+        score += 1
+        scoreWriter.clear()
+        scoreWriter.write(score, font=fontSetup)
+        print(score)
+
+    def countdown():
+        global timer, timerUp
+        counter.clear()
+        if timer <= 0:
+            counter.write("Time's Up", font=fontSetup)
+            wn.bye()
+            timerUp = True
+        else:
+            counter.write("Timer: " + str(timer), font=fontSetup)
+            timer -= 1
+            counter.getscreen().ontimer(countdown, counterInterval)
+
+    wn.ontimer(countdown, counterInterval)
+
+#--Events--#
 
 wn.onkeypress(startresetgame,"*")
 wn.onkeypress("a")
