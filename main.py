@@ -7,20 +7,40 @@ import random as rand
 
 startx = 0
 starty = 0
+
 wn = trtl.Screen()
-game = trtl.Turtle()
 screen_width = 400
 screen_height = 400
+
+game = trtl.Turtle()
+game.hideturtle()
+
+scoreWriter = trtl.Turtle()
+scoreWriter.hideturtle()
+
+counter = trtl.Turtle()
+counter.hideturtle()
+
 timerUp = False
 counterInterval = 1000
-timer = 10
+timer = 3
+
+counter.penup()
+counter.goto(-475,-400)
+
+score = 0
+
 fontSetup = ("Arial BOLD", 30, "normal")
+
 letter_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
                "W", "X", "Y", "Z"]
 shape_game = ["arrow", "turtle", "circle", "square", "triangle", "classic"]
 color_game = ["red", "blue", "green", "orange", "purple", "gold"]
+
 game.speed("fastest")
-game.hideturtle()
+counter.speed("fastest")
+scoreWriter.speed("fastest")
+
 
 
 #--Start-Screen--#
@@ -38,29 +58,26 @@ def startscreen():
     game.write("This is a game that will test your reaction time", font=("Arial", 20, "bold"))
     game.goto(-250, 175)
     game.write("A Shape will appear that's colored", font=("Arial", 20, "bold"))
-    game.goto(-245, 150)
-    game.write("Each shape and color has a meaning", font=("Arial", 20, "bold"))
-    game.goto(-325, 125)
-    game.write("You will have to identify both and the meanings", font=("Arial", 20, "bold"))
     game.goto(-450, 100)
-    game.write("They indicate inputs that you must type or mouse clicks on objects", font=("Arial", 20, "bold"))
+    game.write("Type into the console, the color and shape (Ex. red octagon)", font=("Arial", 20, "bold"))
     game.goto(-400, 75)
     game.write("The objects are there to distract you or to pay attention to", font=("Arial", 20, "bold"))
     game.goto(-325, 50)
     game.write("Theres a countdown telling the time you have left", font=("Arial", 20, "bold"))
     game.goto(-450, 25)
-    game.write("If you do not sucessfully complete the inputs in time you'll lose.", font=("Arial", 20, "bold"))
+    game.write("If you do not complete type in time you'll lose.", font=("Arial", 20, "bold"))
     game.goto(-100, -50)
-    game.write("Pay attention", font=("Arial", 25, "bold"))
+    game.write("Dont mess up what you type either", font=("Arial", 25, "bold"))
     game.goto(-130, -100)
     game.write("Press * to BEGIN", font=("Arial", 25, "bold"))
-    game.goto(-120, -130)
-    game.write("(* also resets game)", font=("Arial", 20, "italic"))
+    game.goto(-160, -130)
+    game.write("(don't press multiple times)", font=("Arial", 20, "italic"))
 startscreen()
 
 #--Shapes-Objects-Lines-#
 
-#Lines#
+#-Lines-#
+
 def line1():
     game.pensize(10)
     game.forward(50)
@@ -106,8 +123,6 @@ def triangle_shape():
 
 def square_object():
     game.pendown()
-    game.fillcolor('DarkRed')
-    game.begin_fill()
     game.forward(50)
     game.right(90)
     game.forward(50)
@@ -116,18 +131,120 @@ def square_object():
     game.right(90)
     game.forward(50)
     game.right(90)
-    game.end_fill()
     game.pendown()
+
+def righttriangle_object():
+    game.forward(100)
+    game.left(90)
+    game.forward(100)
+    game.left(135)
+    game.forward(142)
 
 #--Random-Screens--#
 
 def random_screen1():
     game.showturtle()
     game.pencolor("red")
-
+    game.pendown()
+    line2()
+    game.penup()
 def random_screen2():
+
     game.showturtle()
+    game.pendown()
     game.pencolor("orange")
+    line3()
+    triangle_shape()
+    game.pencolor("red")
+    game.fillcolor("red")
+    game.goto(0,50)
+    game.penup()
+    game.goto(-175,-122)
+    game.pendown()
+    square_object()
+    game.penup()
+    game.goto(-265, -58)
+    game.pendown()
+    game.speed("normal")
+    square_object()
+    game.penup()
+    game.speed("fastest")
+    game.pencolor("Cyan")
+    game.pensize(50)
+    game.goto(465, 300)
+    game.speed("normal")
+    game.pendown()
+    square_object()
+    game.speed("fastest")
+    game.goto(350, 168)
+    game.right(90)
+    game.forward(170)
+    game.right(180)
+    wn.bgcolor("Blue")
+    game.penup()
+    game.goto(38, 29)
+    game.pendown()
+    game.pensize(10)
+    game.pencolor("Purple")
+    game.fillcolor('Purple')
+    game.begin_fill()
+    righttriangle_object()
+    game.end_fill()
+    turtle_object()
+    game.pencolor("Green")
+    game.fillcolor("Green")
+    game.pensize(40)
+    game.forward(100)
+    game.right(90)
+    game.forward(150)
+    game.right(90)
+    game.forward(200)
+    game.right(90)
+    game.forward(250)
+    game.right(90)
+    game.forward(300)
+    game.right(90)
+    game.forward(350)
+    game.right(90)
+    game.forward(400)
+    game.right(90)
+    game.pensize(10)
+    game.forward(450)
+    print("What as the [COLOR] and [SHAPE] of the drawer, when the Cyan shapes and lines were drawn.")
+    type = input('')
+    if type.lower() == 'red triangle':
+        print("Nice")
+        scoreChange()
+        #-Stop-Timer-and-Proceed-#
+
+    else:
+        print("Nope that is not correct")
+        print("Printing Final Score....")
+        print("Score:",(score))
+        print("") #-Line-Of-Space-#
+        wn.bye()
+    
+    def countdown():
+        global timer, timerUp
+        counter.clear()
+        if timer <= 0:
+            counter.write("Time's Up", font=fontSetup)
+            wn.bye()
+            timerUp = True
+        else:
+            counter.write("Timer: " + str(timer), font=fontSetup)
+            timer -= 1
+            counter.getscreen().ontimer(countdown, counterInterval)
+
+    wn.ontimer(countdown, counterInterval)
+
+def scoreChange():
+    global score
+    score += 1
+    scoreWriter.clear()
+    scoreWriter.write(score, font=fontSetup)
+
+
 
 
 def random_screen3():
@@ -152,43 +269,9 @@ def pickrandom_screen():
 
 def startresetgame():
     game.clear()
-    scoreWriter = trtl.Turtle()
-    counter = trtl.Turtle()
-    scoreWriter.clear()
-    counter.clear()
     game.showturtle()
     pickrandom_screen()
 
-    scoreWriter.hideturtle()
-    scoreWriter.penup()
-    scoreWriter.speed("fastest")
-    scoreWriter.goto(300, -300)
-
-    counter.hideturtle()
-    counter.penup()
-    counter.speed("fastest")
-    counter.goto(-475, -400)
-
-    def scoreChange():
-        global score
-        score += 1
-        scoreWriter.clear()
-        scoreWriter.write(score, font=fontSetup)
-        print(score)
-
-    def countdown():
-        global timer, timerUp
-        counter.clear()
-        if timer <= 0:
-            counter.write("Time's Up", font=fontSetup)
-            wn.bye()
-            timerUp = True
-        else:
-            counter.write("Timer: " + str(timer), font=fontSetup)
-            timer -= 1
-            counter.getscreen().ontimer(countdown, counterInterval)
-
-    wn.ontimer(countdown, counterInterval)
 
 #--Events--#
 
