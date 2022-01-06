@@ -210,11 +210,13 @@ def random_screen2():
     game.right(90)
     game.pensize(10)
     game.forward(450)
+
     print("What as the [COLOR] and [SHAPE] of the drawer, when the Cyan shapes and lines were drawn.")
     type = input('')
     if type.lower() == 'red triangle':
         print("Nice")
         scoreChange()
+
         #-Stop-Timer-and-Proceed-#
 
     else:
@@ -236,13 +238,13 @@ def random_screen2():
             timer -= 1
             counter.getscreen().ontimer(countdown, counterInterval)
 
+
     wn.ontimer(countdown, counterInterval)
 
 def scoreChange():
     global score
     score += 1
-    scoreWriter.clear()
-    scoreWriter.write(score, font=fontSetup)
+
 
 
 
