@@ -32,16 +32,12 @@ score = 0
 
 fontSetup = ("Arial BOLD", 30, "normal")
 
-letter_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
-               "W", "X", "Y", "Z"]
 shape_game = ["arrow", "turtle", "circle", "square", "triangle", "classic"]
 color_game = ["red", "blue", "green", "orange", "purple", "gold"]
 
 game.speed("fastest")
 counter.speed("fastest")
 scoreWriter.speed("fastest")
-
-
 
 #--Start-Screen--#
 
@@ -72,9 +68,14 @@ def startscreen():
     game.write("Press * to BEGIN", font=("Arial", 25, "bold"))
     game.goto(-160, -130)
     game.write("(don't press multiple times)", font=("Arial", 20, "italic"))
+
 startscreen()
 
-#--Shapes-Objects-Lines-#
+#-Score-#
+
+def scoreChange():
+    global score
+    score += 1
 
 #-Lines-#
 
@@ -105,7 +106,9 @@ def line3():
     game.right(45)
     game.pensize(17)
     game.forward(40)
-#Shapes/Objects#
+
+#-Shapes/Objects-#
+
 def square_shape():
     game.shape('square')
 
@@ -148,8 +151,8 @@ def random_screen1():
     game.pendown()
     line2()
     game.penup()
-def random_screen2():
 
+def random_screen2():
     game.showturtle()
     game.pendown()
     game.pencolor("orange")
@@ -211,21 +214,22 @@ def random_screen2():
     game.pensize(10)
     game.forward(450)
 
+#-Question/Answers-#
+
     print("What as the [COLOR] and [SHAPE] of the drawer, when the Cyan shapes and lines were drawn.")
     type = input('')
     if type.lower() == 'red triangle':
         print("Nice")
         scoreChange()
-
-        #-Stop-Timer-and-Proceed-#
-
     else:
         print("Nope that is not correct")
         print("Printing Final Score....")
         print("Score:",(score))
-        print("") #-Line-Of-Space-#
+        print("") #----Line-Of-Space----#
         wn.bye()
-    
+
+#-Timer-#
+
     def countdown():
         global timer, timerUp
         counter.clear()
@@ -233,26 +237,18 @@ def random_screen2():
             counter.write("Time's Up", font=fontSetup)
             wn.bye()
             timerUp = True
+        elif scoreChange:
+
         else:
             counter.write("Timer: " + str(timer), font=fontSetup)
             timer -= 1
             counter.getscreen().ontimer(countdown, counterInterval)
 
-
     wn.ontimer(countdown, counterInterval)
-
-def scoreChange():
-    global score
-    score += 1
-
-
-
-
 
 def random_screen3():
     game.showturtle()
     game.pencolor("green")
-
 
 def random_screen4():
     game.showturtle()
@@ -261,6 +257,8 @@ def random_screen4():
 def random_screen5():
     game.showturtle()
     game.pencolor("purple")
+
+#-Random-Screen-Pick-#
 
 screenslist = [random_screen5, random_screen4, random_screen3, random_screen2, random_screen1]
 
@@ -278,33 +276,6 @@ def startresetgame():
 #--Events--#
 
 wn.onkeypress(startresetgame,"*")
-wn.onkeypress("a")
-wn.onkeypress("b")
-wn.onkeypress("c")
-wn.onkeypress("d")
-wn.onkeypress("e")
-wn.onkeypress("f")
-wn.onkeypress("g")
-wn.onkeypress("h")
-wn.onkeypress("i")
-wn.onkeypress("j")
-wn.onkeypress("k")
-wn.onkeypress("l")
-wn.onkeypress("m")
-wn.onkeypress("n")
-wn.onkeypress("o")
-wn.onkeypress("p")
-wn.onkeypress("q")
-wn.onkeypress("r")
-wn.onkeypress("s")
-wn.onkeypress("t")
-wn.onkeypress("u")
-wn.onkeypress("v")
-wn.onkeypress("w")
-wn.onkeypress("x")
-wn.onkeypress("y")
-wn.onkeypress("z")
 
 wn.listen()
-
 wn.mainloop()
